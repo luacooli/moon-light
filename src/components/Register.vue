@@ -1,13 +1,12 @@
 <template>
   <div class="register conatiner">
+     <div v-if="errorMessage" class="error-message">
+      <h6>{{ errorMessage }}</h6>
+    </div>
     <div class="card">
       <form class="card-content" @submit.prevent="submitRegister">
         <h3 class="teal-text">Cadastro</h3>
         <ul>
-          <li>
-            <label for="name">Nome completo</label>
-            <input type="text" required name="name" v-model="name">
-          </li>
           <li>
             <label for="email">Email</label>
             <input type="email" required name="email" v-model="email">
@@ -26,10 +25,6 @@
         </div>
       </form>
     </div>
-
-    <div>
-      <h6>{{ errorMessage }}</h6>
-    </div>
   </div>
 </template>
 
@@ -39,11 +34,10 @@
     name: "Register",
     data() {
       return {
-        name: '',
         email: '',
         password: '',
         confirmPassword: '',
-        errorMessage: ''
+        errorMessage: null
       }
     },
     methods: {
@@ -51,6 +45,7 @@
         auth.createUserWithEmailAndPassword(this.email, this.password)
         .then(response => {
           console.log(response)
+          this.$router.push('success')
         })
         .catch(err => {
           console.log(err)
@@ -76,5 +71,10 @@
   .register .card .card-content div {
     display: flex;
     justify-content: flex-end;
+  }
+
+  .error-message {
+    color: red;
+    text-align: center;
   }
 </style>
