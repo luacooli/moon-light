@@ -1,5 +1,6 @@
 # cadastro-login
 
+TODO: adicionar aplicacao ao dominio
 > A Vue.js project
 
 ## Build Setup
