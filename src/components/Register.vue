@@ -44,11 +44,9 @@
       submitRegister() {
         auth.createUserWithEmailAndPassword(this.email, this.password)
         .then(response => {
-          console.log(response)
           this.$router.push('success')
         })
         .catch(err => {
-          console.log(err)
           this.errorMessage = err.message
         })
       }
