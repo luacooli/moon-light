@@ -1,7 +1,10 @@
 <template>
   <div class="register conatiner">
-     <div v-if="errorMessage" class="error-message">
-      <h6>{{ errorMessage }}</h6>
+     <div v-if="errorCode == 'auth/weak-password'" class="error-message">
+      <h6>A senha não é forte o suficiente</h6>
+    </div>
+    <div v-if="errorCode == 'auth/email-already-in-use'" class="error-message">
+      <h6>Já existe uma conta com o email fornecido</h6>
     </div>
     <div class="card">
       <form class="card-content" @submit.prevent="submitRegister">
@@ -37,7 +40,7 @@
         email: '',
         password: '',
         confirmPassword: '',
-        errorMessage: null
+        errorCode: null
       }
     },
     methods: {
@@ -47,7 +50,7 @@
           this.$router.push('success')
         })
         .catch(err => {
-          this.errorMessage = err.message
+          this.errorCode = err.code
         })
       }
     }

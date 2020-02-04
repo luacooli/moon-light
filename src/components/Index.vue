@@ -1,8 +1,9 @@
 <template>
   <div class="index container">
-    <div v-if="errorMessage" class="error-message">
-      <h6>{{ errorMessage }}</h6>
+    <div v-if="errorCode == 'auth/wrong-password | auth/invalid-email'" class="error-message">
+      <h6>Email ou senha inválido</h6>
     </div>
+    <h4>Bem vindo, para mais informações faça o login!</h4>
     <div class="card">
       <form class="card-content" @submit.prevent="login">
         <div class="card-title">
@@ -35,17 +36,17 @@ export default {
     return {
       email:null,
       password: null,
-      errorMessage: null
+      errorCode: null
     }
   },
   methods: {
     login() {
       auth.signInWithEmailAndPassword(this.email, this.password)
       .then(response => {
-          this.$router.push('success')
+          this.$router.push({ name: 'Success' })
         })
       .catch(err => {
-        this.errorMessage = err.message
+        this.errorCode = err.code
       })
     }
   }
@@ -55,6 +56,10 @@ export default {
 <style>
   .index {
     margin: 60px auto;
+  }
+
+  .index h4 {
+    text-align: center;
   }
 
   .index .card .card-content .card-title {

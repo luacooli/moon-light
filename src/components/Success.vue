@@ -1,5 +1,5 @@
 <template>
-  <div class="success">
+  <div class="success container">
     <div class="card">
       <div class="card-content">
         <div class="card-title">
@@ -16,6 +16,9 @@
           aspernatur enim, magnam voluptas eius repudiandae autem recusandae 
           molestiae, consequatur consectetur praesentium nobis impedit!
         </p>
+        <div>
+          <button @click="signout" class="btn-large">Sing out</button>
+        </div>
       </div>
     </div>
   </div>
@@ -32,6 +35,17 @@ export default {
       uid: null
     };
   },
+  methods: {
+    signout() {
+      auth.signOut()
+      .then(responde => {
+        this.$router.push('/')
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
+  },
   created() {
     this.email = auth.currentUser.email;
     this.uid = auth.currentUser.uid;
@@ -42,5 +56,11 @@ export default {
 <style>
   .success {
     margin: 60px 300px;
+  }
+
+  .success .card .card-content p+div {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
   }
 </style>
