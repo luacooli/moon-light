@@ -11,15 +11,19 @@
         <h3 class="teal-text">Cadastro</h3>
         <ul>
           <li>
-            <label for="email">Email</label>
+            <label for="name">Nome:</label>
+            <input type="text" required name="name" v-model="name">
+          </li>
+          <li>
+            <label for="email">Email:</label>
             <input type="email" required name="email" v-model="email">
           </li>
           <li>
-            <label for="password">Senha</label>
+            <label for="password">Senha:</label>
             <input type="password" required name="password" v-model="password">
           </li>
           <li>
-            <label for="confirmPassword">Confirmar senha</label>
+            <label for="confirmPassword">Confirmar senha:</label>
             <input type="password" required name="confirmPassword" v-model="confirmPassword">
           </li>
         </ul>
@@ -37,6 +41,7 @@
     name: "Register",
     data() {
       return {
+        name: '',
         email: '',
         password: '',
         confirmPassword: '',
@@ -47,7 +52,7 @@
       submitRegister() {
         auth.createUserWithEmailAndPassword(this.email, this.password)
         .then(response => {
-          this.$router.push('success')
+          this.$router.push( { name: 'Success', params: { name: this.name } } )
         })
         .catch(err => {
           this.errorCode = err.code
